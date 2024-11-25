@@ -18,7 +18,7 @@
       </div>
       <div class="mb-3">
   <label for="price" class="form-label">Цена</label>
-  <input type="number" class="form-control" id="price">
+  <input type="number" class="form-control" id="price" min="1">
       </div>
       <div class="text-center mb-3">
         <button type="button" class="btn btn-outline-success">Добавить</button>
@@ -26,6 +26,22 @@
       </form>
     </div>
   </div>
+
+  <div class="row row-cols-1 row-cols-md-3 g-3">
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">iPhone</h5>
+        <p class="card-text">25.11.2024</p>
+        <p class="card-text">$150</p>
+        <p class="card-text">x10</p>
+      </div>
+      <div class="card-footer text-end">
+        <button class="btn btn-outline-danger">Удалить</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 </template>
 
