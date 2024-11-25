@@ -6,19 +6,32 @@
       <form>
         <div class="mb-3">
   <label for="name" class="form-label">Название</label>
-  <input type="text" v-model="name" class="form-control" id="name">
+  <input type="text" v-model="name" class="form-control" :class="{'is-invalid' : !name}" id="name">
+  <div class="invalid-feedback">
+      Пожалуйста заполните назавние
+    </div>
+
       </div>
       <div class="mb-3">
   <label for="date" class="form-label">Дата</label>
-  <input type="date" v-model="date" class="form-control" id="date">
+  <input type="date" v-model="date" class="form-control" :class="{'is-invalid' : !date}" id="date">
+  <div class="invalid-feedback">
+      Пожалуйста заполните дату
+    </div>
       </div>
       <div class="mb-3">
   <label for="count" class="form-label">Колличество</label>
-  <input type="number" v-model="count" class="form-control" id="count">
+  <input type="number" v-model="count" class="form-control" :class="{'is-invalid' : !count}" id="count">
+  <div class="invalid-feedback">
+      Пожалуйста заполните колличество
+    </div>
       </div>
       <div class="mb-3">
   <label for="price" class="form-label">Цена</label>
-  <input type="number" v-model="price" class="form-control" id="price" min="1">
+  <input type="number" v-model="price" class="form-control" :class="{'is-invalid' : !price}" id="price" min="1">
+  <div class="invalid-feedback">
+      Пожалуйста заполните цену
+    </div>
       </div>
       <div class="text-center mb-3">
         <button type="button" @click="addProduct" class="btn btn-outline-success">Добавить</button>
