@@ -6,53 +6,111 @@
       <form>
         <div class="mb-3">
   <label for="name" class="form-label">Название</label>
-  <input type="text" class="form-control" id="name">
+  <input type="text" v-model="name" class="form-control" id="name">
       </div>
       <div class="mb-3">
   <label for="date" class="form-label">Дата</label>
-  <input type="date" class="form-control" id="date">
+  <input type="date" v-model="date" class="form-control" id="date">
       </div>
       <div class="mb-3">
   <label for="count" class="form-label">Колличество</label>
-  <input type="number" class="form-control" id="count">
+  <input type="number" v-model="count" class="form-control" id="count">
       </div>
       <div class="mb-3">
   <label for="price" class="form-label">Цена</label>
-  <input type="number" class="form-control" id="price" min="1">
+  <input type="number" v-model="price" class="form-control" id="price" min="1">
       </div>
       <div class="text-center mb-3">
-        <button type="button" class="btn btn-outline-success">Добавить</button>
+        <button type="button" @click="addProduct" class="btn btn-outline-success">Добавить</button>
       </div>
       </form>
     </div>
   </div>
 
   <div class="row row-cols-1 row-cols-md-3 g-3">
-  <div class="col">
+  <div class="col" v-for="product in products" :key="product.id">
     <div class="card h-100">
       <div class="card-body">
-        <h5 class="card-title">iPhone</h5>
-        <p class="card-text">25.11.2024</p>
-        <p class="card-text">$150</p>
-        <p class="card-text">x10</p>
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">{{ product.date }}</p>
+        <p class="card-text">${{ product.price }}</p>
+        <p class="card-text">x{{ product.count }}</p>
       </div>
       <div class="card-footer text-end">
-        <button class="btn btn-outline-danger">Удалить</button>
+        <button @click="removeProduct(product.id)" class="btn btn-outline-danger">Удалить</button>
       </div>
     </div>
   </div>
 </div>
 <div class="row my-4">
   <div class="col">
-    <h3 class="text-end">Общая сумма: $4500</h3>
+    <h3 class="text-end">Общая сумма: ${{ totalSum }}</h3>
   </div>
 </div>
 </div>
 </template>
 
 <script setup>
+import { ref, computed } from 'vue';
 
 
+const products = ref([
+  {
+    id: 1,
+    name: 'iPhone 16',
+    date: '25.11.2024',
+    count: 10,
+    price: 1500,
+  },
+  {
+    id: 2,
+    name: 'Samsung s23 PLUS',
+    date: '12.07.2024',
+    count: 15,
+    price: 1000,
+  },
+  {
+    id: 3,
+    name: 'Xiaomi Mi 14',
+    date: '12.05.2024',
+    count: 20,
+    price: 700,
+  },
+  {
+    id: 4,
+    name: 'Huawei p40',
+    date: '27.12.2024',
+    count: 10,
+    price: 1350,
+  }
+
+]);
+const name = ref('');
+const date = ref('');
+const count = ref(1);
+const price = ref(0);
+
+const addProduct = () => {
+  if (name.value && date.value && count.value && price.value) {
+    products.value.push(
+      {
+    id: Date.now(),
+    name: name.value,
+    date: date.value,
+    count: count.value,
+    price: price.value,
+  }
+    );
+  }
+}
+
+const removeProduct = (id) => {
+  products.value = products.value.filter((product) => product.id != id);
+}
+
+const totalSum = computed(() => {
+  return products.value.reduce((sum, product) => sum + (product.price * product.count), 0)
+});
 </script>
 
 <style>
